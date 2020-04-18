@@ -16,18 +16,21 @@ enum custom_keycodes {
 //Tap Dance Declarations
 enum {
   TD_LSHIFT_TO_CAPS = 0,
-  TD_LALT_TO_LGUI
+  TD_LALT_TO_LGUI,
+  TD_RSHIFT_TO_RCTL
 };
 
 //Tap Dance Definitions
 qk_tap_dance_action_t tap_dance_actions[] = {
   //Tap once for Esc, twice for Caps Lock
-  [TD_LSHIFT_TO_CAPS]  = ACTION_TAP_DANCE_DOUBLE(KC_LSFT, KC_CAPS),
-  [TD_LALT_TO_LGUI] = ACTION_TAP_DANCE_DOUBLE(KC_LALT, KC_LGUI)
+  [TD_LSHIFT_TO_CAPS]  = ACTION_TAP_DANCE_DOUBLE(KC_LSHIFT, KC_CAPS),
+  [TD_LALT_TO_LGUI] = ACTION_TAP_DANCE_DOUBLE(KC_LALT, KC_LGUI),
+  [TD_RSHIFT_TO_RCTL] = ACTION_TAP_DANCE_DOUBLE(KC_RSHIFT, KC_RCTL)
 };
 
 #define QW_SFCP TD(TD_LSHIFT_TO_CAPS)
 #define QW_LAGI TD(TD_LALT_TO_LGUI)
+#define QW_RSCT TD(TD_RSHIFT_TO_RCTL)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -39,9 +42,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //├────────┼────────┼────────┼────────┼────────┼────────┤                          ├────────┼────────┼────────┼────────┼────────┼────────┤
      QW_SFCP, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,                               KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,
   //├────────┼────────┼────────┼────────┼────────┼────────┼────────┐        ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┤
-     KC_LCTL, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_MINS,          KC_DEL,  KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT,
+     KC_LCTL, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    RAISE,            KC_LGUI, KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT,
   //└────────┴────────┴────────┴───┬────┴───┬────┴───┬────┴───┬────┘        └───┬────┴───┬────┴───┬────┴───┬────┴────────┴────────┴────────┘
-                                    QW_LAGI, LOWER,   KC_SPC,                    KC_ENT,  RAISE,   KC_RALT
+                                    QW_LAGI, LOWER,   KC_SPC,                    KC_ENT,  LOWER,   KC_CAPS
                                 // └────────┴────────┴────────┘                 └────────┴────────┴────────┘
   ),
 
@@ -49,9 +52,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //┌────────┬────────┬────────┬────────┬────────┬────────┐                          ┌────────┬────────┬────────┬────────┬────────┬────────┐
      KC_GRV,  KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC,                            KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_DEL,
   //├────────┼────────┼────────┼────────┼────────┼────────┤                          ├────────┼────────┼────────┼────────┼────────┼────────┤
-     _______, _______, _______, _______, _______, _______,                            _______, _______, _______, _______, _______, KC_PGUP,
+     _______, _______, _______, KC_UNDS, KC_PLUS, _______,                            _______, KC_LCBR, KC_RCBR, _______, _______, KC_PGUP,
   //├────────┼────────┼────────┼────────┼────────┼────────┤                          ├────────┼────────┼────────┼────────┼────────┼────────┼
-     _______, _______, _______, _______, _______, _______,                            KC_EQL,  KC_LBRC, KC_RBRC, _______, KC_UP,   KC_PGDN, 
+     _______, _______, _______, KC_MINS, KC_EQL,  _______,                            _______, KC_LBRC, KC_RBRC, _______, KC_UP,   KC_PGDN, 
   //├────────┼────────┼────────┼────────┼────────┼────────┼────────┐        ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┼
      _______, _______, _______, _______, _______, _______, _______,          KC_TILD, _______, _______, _______, KC_LEFT, KC_DOWN, KC_RGHT, 
   //└────────┴────────┴────────┴───┬────┴───┬────┴───┬────┴───┬────┘        └───┬────┴───┬────┴───┬────┴───┬────┴────────┴────────┴────────┘
@@ -144,3 +147,5 @@ void encoder_update_user(uint8_t index, bool clockwise) {
         }
     }
 }
+
+
